@@ -71,6 +71,7 @@ const BookingDatePicker = ({ room }: Props) => {
     }
 
     if (checkoutData) {
+      console.log(checkoutData, "checkoutData");
       router.replace(checkoutData?.url);
     }
   }, [error, checkoutData]);
@@ -89,7 +90,7 @@ const BookingDatePicker = ({ room }: Props) => {
     stripeCheckout({ id: room?._id, checkoutData });
   };
 
-  // const bookRoom = () => {
+  // const bookRoom = () =>stripeCheckout {
   //   const bookingData = {
   //     room: room?._id,
   //     checkInDate,
@@ -107,7 +108,7 @@ const BookingDatePicker = ({ room }: Props) => {
   return (
     <div className="booking-card shadow p-4">
       <p className="price-per-night">
-        <b>₹{room?.pricePerNight}</b> / night
+        <b>${room?.pricePerNight}</b> / night
       </p>
 
       <hr />
@@ -147,7 +148,7 @@ const BookingDatePicker = ({ room }: Props) => {
           onClick={bookRoom}
           disabled={isLoading}
         >
-          Pay - ₹{daysOfStay * room?.pricePerNight}
+          Pay - ${daysOfStay * room?.pricePerNight}
         </button>
       )}
     </div>

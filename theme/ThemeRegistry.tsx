@@ -13,6 +13,15 @@ const roboto = Roboto({
 });
 
 const theme: ThemeOptions = createTheme({
+  breakpoints: {
+    values: {
+      xs: 480,
+      sm: 768,
+      md: 920,
+      lg: 1200,
+      xl: 1800,
+    },
+  },
   typography: {
     fontSize: 18,
     fontFamily: [

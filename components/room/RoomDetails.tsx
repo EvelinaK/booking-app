@@ -26,10 +26,10 @@ interface Props {
 const RoomDetails = ({ data }: Props) => {
   const { room } = data;
   const classes = useStyles() as Record<string, string>;
-  const [openMapModal, setOpenMapModal] = useState();
+  const [openMapModal, setOpenMapModal] = useState(false);
 
   const handleClose = () => {
-    setOpenMapModal("");
+    setOpenMapModal(false);
   };
   const locationAppartmentInfo = {
     lat: room?.location?.coordinates?.[1],
@@ -77,7 +77,7 @@ const RoomDetails = ({ data }: Props) => {
           // fullScreen={fullScreen}
           maxWidth={"lg"}
           open={openMapModal}
-          onClose={() => setOpenMapModal("")}
+          onClose={() => setOpenMapModal(false)}
           classes={{ paper: classes.paper }}
         >
           <IconButton className={classes.closeBtn} onClick={handleClose}>
@@ -85,15 +85,15 @@ const RoomDetails = ({ data }: Props) => {
           </IconButton>
           <DialogContent className={classes.contentWrap}>
             <MapModal
-              onClose={() => setOpenMapModal("")}
+              onClose={() => setOpenMapModal(false)}
               center={locationAppartmentInfo}
             />
           </DialogContent>
         </Dialog>
       </div>
 
-      <NewReview />
-      <ListReviews />
+      <NewReview roomId={room._id} />
+      <ListReviews reviews={room?.reviews} />
     </div>
   );
 };

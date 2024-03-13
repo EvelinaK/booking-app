@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 import geoCoder from "../utils/geoCoder";
+import { IUser } from "./user";
 
 export interface IImage extends Document {
   public_id: string;
@@ -35,12 +36,12 @@ export interface IRoom extends Document {
   isAirConditioned: boolean;
   isPetsAllowed: boolean;
   isRoomCleaning: boolean;
-  rating: number;
+  ratings: number;
   numOfReviews: number;
   images: IImage[];
   category: string;
   reviews: IReview[];
-  user: mongoose.Schema.Types.ObjectId;
+  user: IUser;
   createdAt: Date;
 }
 
@@ -107,7 +108,7 @@ const roomSchema: Schema<IRoom> = new Schema({
     type: Boolean,
     default: false,
   },
-  rating: {
+  ratings: {
     type: Number,
     default: 0,
   },
