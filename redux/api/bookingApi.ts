@@ -13,7 +13,6 @@ export const bookingApi = createApi({
         };
       },
     }),
-
     checkBookingAvailability: builder.query({
       query({ id, checkInDate, checkOutDate }) {
         return {
@@ -21,23 +20,19 @@ export const bookingApi = createApi({
         };
       },
     }),
-
     getBookedDates: builder.query({
       query(id) {
-        //passed
         return {
           url: `/bookings/booked_dates?roomId=${id}`,
         };
       },
     }),
-
     stripeCheckout: builder.query({
       query({ id, checkoutData }) {
-        //passed to it
         return {
           url: `/payment/checkout_session/${id}`,
           params: {
-            checkInDate: checkoutData.checkInDate, //passing to backend in params
+            checkInDate: checkoutData.checkInDate,
             checkOutDate: checkoutData.checkOutDate,
             daysOfStay: checkoutData.daysOfStay,
             amount: checkoutData.amount,
@@ -53,7 +48,6 @@ export const bookingApi = createApi({
         };
       },
     }),
-
     deleteBooking: builder.mutation({
       query(id) {
         return {

@@ -24,16 +24,15 @@ const Home = ({ data }: Props) => {
   return (
     <div>
       <section id="rooms" className="container mt-5">
-        {/* <h2 className="mb-3 ml-2 stays-heading">
+        <h2 className="mb-3 ml-2 stays-heading">
           {location
             ? `${rooms?.length} rooms found in ${location}`
             : "All Rooms"}
-        </h2> */}
-        <Typography variant="h1" component="h2">
-          h1. Heading
-        </Typography>
+        </h2>
+
         <Link href="/search" className="ml-2 back-to-search">
-          <i className="fa fa-arrow-left me-1"></i> Back to Search
+          <i aria-hidden="true" className="fa fa-arrow-left me-1"></i> Back to
+          Search
         </Link>
         <div className="row mt-4">
           {rooms?.length === 0 ? (

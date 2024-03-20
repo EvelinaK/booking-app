@@ -1,14 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-//roomapi for    canuserreview  and postreview  end poins
 export const roomApi = createApi({
   reducerPath: "roomApi",
-  tagTypes: ["Reviews"], //can provide each api hit a tag, so that whever hits can revalidate it using same tag value
-
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
-
+  tagTypes: ["Reviews"],
   endpoints: (builder) => ({
-    //1.
     canUserReview: builder.query({
       query(id) {
         return {
@@ -16,8 +12,6 @@ export const roomApi = createApi({
         };
       },
     }),
-
-    //2.
     postReview: builder.mutation({
       query(body) {
         return {
@@ -27,7 +21,6 @@ export const roomApi = createApi({
         };
       },
     }),
-
     newRoom: builder.mutation({
       query(body) {
         return {
@@ -37,7 +30,6 @@ export const roomApi = createApi({
         };
       },
     }),
-
     updateRoom: builder.mutation({
       query({ id, body }) {
         return {
@@ -47,7 +39,6 @@ export const roomApi = createApi({
         };
       },
     }),
-
     uploadRoomImages: builder.mutation({
       query({ id, body }) {
         return {
@@ -57,7 +48,6 @@ export const roomApi = createApi({
         };
       },
     }),
-
     deleteRoomImage: builder.mutation({
       query({ id, body }) {
         return {
@@ -67,7 +57,6 @@ export const roomApi = createApi({
         };
       },
     }),
-
     deleteRoom: builder.mutation({
       query(id) {
         return {
@@ -76,7 +65,6 @@ export const roomApi = createApi({
         };
       },
     }),
-
     getRoomReviews: builder.query({
       query(id) {
         return {
@@ -85,7 +73,6 @@ export const roomApi = createApi({
       },
       providesTags: ["Reviews"],
     }),
-
     deleteReview: builder.mutation({
       query({ id, roomId }) {
         return {

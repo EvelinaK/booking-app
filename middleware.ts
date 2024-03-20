@@ -1,11 +1,3 @@
-// import { withAuth } from "next-auth/middleware";
-
-// export default withAuth(function middleware(req) {});
-
-// export const config = {
-//   matcher: ["/me/:path*", "/bookings/:path*"],
-// };
-
 import { withAuth } from "next-auth/middleware";
 import { IUser } from "./backend/models/user";
 import { NextResponse } from "next/server";

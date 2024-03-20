@@ -10,11 +10,15 @@ import { OverridableComponent } from "@mui/material/OverridableComponent";
 import SwapVertOutlinedIcon from "@mui/icons-material/SwapVertOutlined";
 import { createElement } from "react";
 import MuiPagination from "@mui/material/Pagination";
-import Select, { SelectComponents, GroupBase } from "react-select";
+import Select, { GroupBase } from "react-select";
+import SelectComponents from "react-select";
 import { withStyles as stylesWithStyles } from "@mui/styles";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
+import { makeStyles } from "@mui/styles";
+import { useStyles } from "./styles";
+import style from "./styles";
 
-import styles from "./styles";
+//const useStyles = makeStyles((theme) => style);
 
 type StyleFunction = (
   styles: React.CSSProperties,
@@ -32,7 +36,7 @@ interface CustomStyles {
 interface PerPageComponentProps {
   classes?: Record<string, string>;
   styles?: CustomStyles;
-  changed: boolean;
+  changed?: boolean;
   [key: string]: any;
 }
 
@@ -47,8 +51,8 @@ interface PaginationComponentProps {
   list?: any[];
   withTable?: boolean;
   backendPagination?: boolean;
-  classes: Record<string, string>;
-  className: string;
+  classes?: Record<string, string>;
+  className?: string;
   [key: string]: any;
 }
 
@@ -131,7 +135,7 @@ const customStyles: CustomStyles = {
   }),
   indicatorsContainer: (styles) => ({
     ...styles,
-    padding: "0 10px",
+    padding: "0",
     color: "#828282",
     "@media (max-width: 767px)": {
       padding: "0 4px",
@@ -181,13 +185,13 @@ const PerPageComponent: React.FC<PerPageComponentProps> = ({
   const components:
     | Partial<SelectComponents<unknown, false, GroupBase<unknown>>>
     | undefined = changed
-    ? {
+    ? changed
+    : {
         IndicatorSeparator: () => null,
         DropdownIndicator: (props: any) => (
           <ArrowDropDownOutlinedIcon {...props} />
         ),
-      }
-    : undefined;
+      };
 
   return (
     <Select
@@ -250,14 +254,12 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
       !backendPagination && onPageChange(0);
     }
   };
-
-  return (
+  return createElement(
+    type,
+    { className: cnWrapper },
     <>
-      <div className={classes?.perPageWrapper}>
+      <div className={classes.perPageWrapper}>
         <PerPageComponent
-          classes={undefined}
-          styles={undefined}
-          changed={false}
           label=""
           value={{ value: perPage, label: perPage }}
           onChange={handlerChangePerPage}
@@ -265,9 +267,8 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
           list={list}
           {...rest}
         />
-        <span>{"shared:per_page"}</span>
+        {/* <span>{"per_page"}</span> */}
       </div>
-
       <PaginationContent
         variant="text"
         siblingCount={1}
@@ -294,32 +295,10 @@ const Table: React.FC<any> = ({
     ? { ...defaultOptions, ...options }
     : defaultOptions;
 
+  const styles = useStyles();
+
   const cn = clsx(className);
   const alignedColumns = prop.columns && prop.columns?.map((column) => column);
-
-  const count = Math.ceil(prop.count / prop.rowsPerPage);
-
-  const cnWrapper = clsx(
-    classes?.wrapper,
-    { "table-footer": withTable },
-    className
-  );
-
-  const handleChangePage = (e, newPage) => {
-    if (withTable) {
-      prop.onChangePage(e, newPage - 1);
-    } else prop.onChangePage(newPage - 1);
-  };
-
-  const handlerChangePerPage = (props) => {
-    if (withTable) {
-      const e = { target: { value: Number(value) } };
-      prop.onChangeRowsPerPage(e);
-    } else {
-      prop.onChangeRowsPerPage(+value);
-      !backendPagination && prop.onChangePage(0);
-    }
-  };
 
   return (
     <div className={cn}>
@@ -362,8 +341,7 @@ const Table: React.FC<any> = ({
               total={props.count}
               rowsPerPageOptions={props.rowsPerPageOptions}
               perPage={props.rowsPerPage}
-              classes={undefined}
-              className={""}
+              classes={{ ...styles }}
             />
           ),
         }}

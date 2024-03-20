@@ -235,13 +235,14 @@ body {
 /* Header User Profile */
 
 /* Navbar */
-nav {
+
+/* nav {
   background-color: white;
   padding: 1rem 1rem;
   -webkit-box-shadow: 0 4px 6px -6px #222;
   -moz-box-shadow: 0 4px 6px -6px #222;
   box-shadow: 0 4px 6px -6px #222;
-}
+} */
 
 .login-header-btn {
   background-color: #e61e4d;

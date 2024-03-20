@@ -23,7 +23,7 @@ const MyBookings = ({ data }: Props) => {
     setIsClient(true);
   }, []);
 
-  const tableRef = createRef(null);
+  const tableRef = createRef();
 
   const tableOptions = {
     selection: false,
@@ -148,7 +148,51 @@ const MyBookings = ({ data }: Props) => {
     // setSelectedCallQueues([data]);
     // handleOpenDeleteModal();
   };
+  // const actions = [
+  //   (rowData) => ({
+  //     icon: () => (
+  //       <>
+  //         <span>
+  //           <Link href={`/bookings/${rowData.id}`} className="btn btn-primary">
+  //             <VisibilityOutlinedIcon />
+  //           </Link>
+  //         </span>
+
+  //         <span>
+  //           <Link
+  //             href={`/bookings/invoice/${rowData.id}`}
+  //             className="btn btn-success ms-2"
+  //           >
+  //             <ReceiptOutlinedIcon />
+  //           </Link>
+  //         </span>
+  //       </>
+  //     ),
+  //     // tooltip: "Edit",
+  //     //onClick: (event, rowData) => alert(rowData),
+  //   }),
+  // ];
+
   const actions = [
+    // First action
+    (rowData) => ({
+      icon: () => (
+        <>
+          {" "}
+          <span>
+            <Link
+              href={`/bookings/invoice/${rowData.id}`}
+              className="btn btn-success ms-2"
+            >
+              <ReceiptOutlinedIcon />
+            </Link>
+          </span>
+        </>
+      ),
+      ///tooltip: <Typography>ABC</Typography>,
+      //onClick: (event, rowData) => handleFirstAction(event, rowData),
+    }),
+    // Second action
     (rowData) => ({
       icon: () => (
         <>
@@ -157,20 +201,10 @@ const MyBookings = ({ data }: Props) => {
               <VisibilityOutlinedIcon />
             </Link>
           </span>
-
-          <span>
-            <Link
-              href={`/bookings/invoice/${rowData.id}`}
-              className="btn btn-success ms-2"
-            >
-              {" "}
-              <ReceiptOutlinedIcon />
-            </Link>
-          </span>
         </>
       ),
-      // tooltip: "Edit",
-      //onClick: (event, rowData) => alert(rowData),
+      // tooltip: <Typography>DEF</Typography>,
+      //onClick: (event, rowData) => handleSecondAction(event, rowData),
     }),
   ];
 
@@ -194,7 +228,7 @@ const MyBookings = ({ data }: Props) => {
   return (
     <div>
       {" "}
-      {isClient && (
+      {
         <div className="container">
           <h1 className="my-5">My Bookings</h1>
 
@@ -213,7 +247,7 @@ const MyBookings = ({ data }: Props) => {
             // onSelectionChange={setSelectedCallQueues}
           />
         </div>
-      )}{" "}
+      }{" "}
     </div>
   );
 };

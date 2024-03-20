@@ -169,6 +169,8 @@ const getLastSixMonthsSales = async () => {
 };
 
 const getTopPerformingRooms = async (startDate: Date, endDate: Date) => {
+  const booking = await Booking;
+  console.log(booking, "booking");
   const topRooms = await Booking.aggregate([
     // Stage 1: Filter documents within start and end date
     {
